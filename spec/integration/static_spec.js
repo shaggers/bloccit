@@ -23,23 +23,14 @@ describe("routes : static", () => {
 
   describe("GET /marco", () => {
 
-      it("should return status code 200", (done) => {
-
+      it("should have status code 200 and return 'polo'", () => {
         request.get(base, (err, res, body) => {
             expect(res.statusCode).toBe(200);
+            expect(body).toContain("polo");
 
             done();
         });
+
       });
-
-      it("should return 'polo'", (done) => {
-
-        request.get(base, (err, res, body) => {
-            expect(res).toBe("polo");
-
-            done();
-        })
-
-      })
   });
 });

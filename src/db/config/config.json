@@ -18,10 +18,13 @@
     "operatorsAliases": false
   },
   "production": {
-    "username": "cameronsmac",
+    "username": "root",
     "password": null,
-    "database": "bloccit-dev",
+    "database": "database_production",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "logging": false,
+    "operatorsAliases": false,
+    "use_env_variable": "postgresql-octagonal-94351"
   }
 }

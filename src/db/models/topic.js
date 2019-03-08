@@ -1,13 +1,23 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Topic = sequelize.define("Topics", {
-    title: DataTypes.STRING,
-    description: DataTypes.STRING
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   }, {});
   Topic.associate = function(models) {
     Topic.hasMany(models.Banner, {
       foreignKey: "topicId",
       as: "banners",
+    }),
+    Topic.hasMany(models.Posts, {
+      foreignKey: "topicId",
+      as: "posts"
     });
   };
   return Topic;

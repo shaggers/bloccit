@@ -8,6 +8,7 @@ module.exports = {
         let newPost= {
           title: req.body.title,
           body: req.body.body,
+          flair: req.body.flair,
           topicId: req.params.topicId
         };
         postQueries.addPost(newPost, (err, post) => {

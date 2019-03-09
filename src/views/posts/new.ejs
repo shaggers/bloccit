@@ -18,7 +18,18 @@
           <label for="body">Post body</label>
           <textarea rows="4" class="form-control" name="body" placeholder="Enter Post body"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div>
+          <label for="flair">Flair</label>
+          <select class="custom-select" name="flair" id="flair">
+              <option selected>Optional</option>
+              <option value="Answer">Answer</option>
+              <option value="Question">Question</option>
+              <option value="Debate">Debate</option>
+              <option value="Theory">Theory</option>
+              <option value="News">News</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top: 25px;">Submit</button>
       </form>
     </main>
 

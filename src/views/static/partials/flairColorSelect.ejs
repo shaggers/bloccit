@@ -1,0 +1,13 @@
+<% if(post.flair === "Answer"){ %>
+    <span class="badge badge-primary" style="margin: 5px;"><%= post.flair %></span>
+  <% } else if(post.flair === "Question"){ %>
+    <span class="badge badge-secondary" style="margin: 5px;"><%= post.flair %></span>
+  <% } else if(post.flair === "Debate"){ %>
+    <span class="badge badge-light" style="margin: 5px;"><%= post.flair %></span>
+  <% } else if(post.flair === "Theory"){ %>  
+    <span class="badge badge-dark" style="margin: 5px;"><%= post.flair %></span>
+  <% } else if(post.flair === "News"){ %>
+    <span class="badge badge-info" style="margin: 5px;"><%= post.flair %></span>
+  <% } else { %>
+    <span></span>
+  <% } %>

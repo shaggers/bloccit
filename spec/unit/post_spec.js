@@ -21,6 +21,7 @@ describe("Post", () => {
         Post.create({
           title: "My first visit to Proxima Centauri b",
           body: "I saw some rocks.",
+          flair: "Science",
 //#4
           topicId: this.topic.id
         })
@@ -44,6 +45,7 @@ describe("Post", () => {
       Post.create({
         title: "Pros of Cryosleep during the long journey",
         body: "1. Not having to answer the 'are we there yet?' question.",
+        flair: "Answer",
         topicId: this.topic.id
       })
       .then((post) => {
@@ -51,6 +53,7 @@ describe("Post", () => {
 //#2
         expect(post.title).toBe("Pros of Cryosleep during the long journey");
         expect(post.body).toBe("1. Not having to answer the 'are we there yet?' question.");
+        expect(post.flair).toBe("Answer");
         done();
 
       })

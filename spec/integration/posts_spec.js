@@ -25,6 +25,7 @@ describe("routes : posts", () => {
         Post.create({
           title: "Snowball Fighting",
           body: "So much snow!",
+          flair: "News",
           topicId: this.topic.id
         })
         .then((post) => {
@@ -60,7 +61,8 @@ describe("routes : posts", () => {
          url: `${base}/${this.topic.id}/posts/create`,
          form: {
            title: "Watching snow melt",
-           body: "Without a doubt my favoriting things to do besides watching paint dry!"
+           body: "Without a doubt my favoriting things to do besides watching paint dry!",
+           flair: "Theory"
          }
        };
        request.post(options,
@@ -71,6 +73,7 @@ describe("routes : posts", () => {
              expect(post).not.toBeNull();
              expect(post.title).toBe("Watching snow melt");
              expect(post.body).toBe("Without a doubt my favoriting things to do besides watching paint dry!");
+             expect(post.flair).toBe("Theory")
              expect(post.topicId).not.toBeNull();
              done();
            })
@@ -125,6 +128,7 @@ describe("routes : posts", () => {
         expect(err).toBeNull();
         expect(body).toContain("Edit Post");
         expect(body).toContain("Snowball Fighting");
+        expect(body).toContain("News");
         done();
       });
     });
@@ -138,7 +142,8 @@ describe("routes : posts", () => {
         url: `${base}/${this.topic.id}/posts/${this.post.id}/update`,
         form: {
           title: "Snowman Building Competition",
-          body: "I love watching them melt slowly."
+          body: "I love watching them melt slowly.",
+          flair: "None"
         }
       }, (err, res, body) => {
         expect(res.statusCode).toBe(302);
@@ -150,7 +155,8 @@ describe("routes : posts", () => {
         const options = {
           url: `${base}/${this.topic.id}/posts/${this.post.id}/update`,
           form: {
-            title: "Snowman Building Competition"
+            title: "Snowman Building Competition",
+            flair: "None"
           }
         };
         request.post(options,
@@ -163,6 +169,7 @@ describe("routes : posts", () => {
           })
           .then((post) => {
             expect(post.title).toBe("Snowman Building Competition");
+            expect(post.flair).toBe("None");
             done();
           });
         });

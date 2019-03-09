@@ -1,5 +1,6 @@
 const Post = require("./models").Posts;
 const Topic = require("./models").Topics;
+const Flair = require("./models").Flairs;
 
 module.exports = {
     addPost(newPost, callback){
@@ -12,7 +13,12 @@ module.exports = {
         })
     },
     getPost(id, callback){
-        return Post.findById(id)
+        return Post.findById(id, {
+          include: [{
+            model: Flair,
+            as: "flairs"
+          }]
+        })
         .then((post) => {
           callback(null, post);
         })

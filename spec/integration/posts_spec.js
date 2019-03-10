@@ -184,6 +184,7 @@ describe("routes : posts", () => {
           url: `${base}/${this.topic.id}/posts/${this.post.id}/update`,
           form: {
             title: "Snowman Building Competition",
+            body: "I love watching them melt slowly",
             flair: "None"
           }
         };
@@ -197,6 +198,7 @@ describe("routes : posts", () => {
           })
           .then((post) => {
             expect(post.title).toBe("Snowman Building Competition");
+            expect(post.body).toBe("I love watching them melt slowly");
             expect(post.flair).toBe("None");
             done();
           });

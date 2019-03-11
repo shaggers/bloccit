@@ -29,13 +29,14 @@ describe("Topic", () => {
           posts: [{
             title: "My first visit to Proxima Centauri b",
             body: "I saw some rocks.",
+            flair: "Answer",
             userId: this.user.id
           }]
         }, {
 
 // #5
           include: {
-            model: Post,
+            model: Post,  // MIGHT NEED TO CHANGE TO POSTS *************
             as: "posts"
           }
         })

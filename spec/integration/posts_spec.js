@@ -5,6 +5,7 @@ const base = "http://localhost:3000/topics";
 const sequelize = require("../../src/db/models/index").sequelize;
 const Topic = require("../../src/db/models").Topics;
 const Post = require("../../src/db/models").Posts;
+const User = require("../../src/db/models").Users;
 
 describe("routes : posts", () => {
 
@@ -27,6 +28,7 @@ describe("routes : posts", () => {
           posts: [{
             title: "Snowball Fighting",
             body: "So much snow!",
+            flair: "Answer",
             userId: this.user.id
           }]
         }, {
@@ -66,7 +68,8 @@ describe("routes : posts", () => {
          form: {
            title: "Watching snow melt",
            body: "Without a doubt my favoriting things to do besides watching paint dry!",
-           flair: "Theory"
+           flair: "Theory",
+           userId: this.user.id
          }
        };
        request.post(options,
@@ -175,7 +178,8 @@ describe("routes : posts", () => {
         form: {
           title: "Snowman Building Competition",
           body: "I love watching them melt slowly.",
-          flair: "None"
+          flair: "None",
+          userId: this.user.id
         }
       }, (err, res, body) => {
         expect(res.statusCode).toBe(302);
@@ -189,7 +193,8 @@ describe("routes : posts", () => {
           form: {
             title: "Snowman Building Competition",
             body: "I love watching them melt slowly",
-            flair: "None"
+            flair: "None",
+            userId: this.user.id
           }
         };
         request.post(options,

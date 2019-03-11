@@ -25,6 +25,7 @@ describe("Post", () => {
           posts: [{
             title: "My first visit to Proxima Centauri b",
             body: "I saw some rocks.",
+            flair: "Answer",
             userId: this.user.id
           }]
         }, {

@@ -9,7 +9,8 @@ module.exports = {
           title: req.body.title,
           body: req.body.body,
           flair: req.body.flair,
-          topicId: req.params.topicId
+          topicId: req.params.topicId,
+          userId: req.user.id
         };
         postQueries.addPost(newPost, (err, post) => {
           if(err){

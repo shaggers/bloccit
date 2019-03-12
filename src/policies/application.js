@@ -2,6 +2,8 @@ module.exports = class ApplicationPolicy {
 
     // #1
      constructor(user, record) {
+      console.log("new authorizer ----------"); 
+      console.log(user);
        this.user = user;
        this.record = record;
      }
@@ -12,6 +14,7 @@ module.exports = class ApplicationPolicy {
      }
    
      _isAdmin() {
+       console.log(this.user);
        return this.user && this.user.role == "admin";
      }
    

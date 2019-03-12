@@ -18,6 +18,7 @@
    }
  
    update() {
+     console.log("topic policy update");
      return this.edit();
    }
  

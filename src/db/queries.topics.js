@@ -48,21 +48,20 @@ module.exports = {
         .then((topic) => {
    
     // #2
-          const authorized = new Authorizer(req.user, topic).destroy();
+          
    
-          if(authorized) {
+          
     // #3
             topic.destroy()
             .then((res) => {
               callback(null, topic);
             });
             
-          } else {
+           
    
     // #4
-            req.flash("notice", "You are not authorized to do that.")
-            callback(401);
-          }
+  
+          
         })
         .catch((err) => {
           callback(err);
@@ -80,9 +79,7 @@ module.exports = {
            }
     
     // #3
-           const authorized = new Authorizer(req.user, topic).update();
-    
-           if(authorized) {
+           
     
     // #4
              topic.update(updatedTopic, {
@@ -94,12 +91,7 @@ module.exports = {
              .catch((err) => {
                callback(err);
              });
-           } else {
-    
-    // #5
-             req.flash("notice", "You are not authorized to do that.");
-             callback("Forbidden");
-           }
+           
          });
   }
 }

@@ -1,5 +1,5 @@
 const topicQueries = require("../db/queries.topics.js");
-const Authorizer = require("../policies/topic.js");
+const Authorizer = require("../policies/topic");
 
 module.exports = {
     index(req, res, next){
@@ -64,13 +64,26 @@ module.exports = {
     destroy(req, res, next){
 
       // #1
+      const authorized = new Authorizer(req.user).destroy();
+
+      if(authorized){
+
           topicQueries.deleteTopic(req, (err, topic) => {
             if(err){
-              res.redirect(err, `/topics/${req.params.id}`)
+              console.log(err);
+              res.redirect(500, `/topics/${req.params.id}`)
             } else {
+              console.log("deleted Topic *****");
               res.redirect(303, "/topics")
             }
           });
+
+        } else {
+          console.log("Not authorized to destroy *******");
+          req.flash("notice", "You are not authorized to do that.")
+          res.redirect(500, `/topics/${req.params.id}`);
+        }
+
     },
     edit(req, res, next){
 
@@ -96,6 +109,16 @@ module.exports = {
     update(req, res, next){
 
       // #1
+      console.log("updating topic______");
+      //const authorized = new Authorizer(req.user, topic).update();
+
+      topicQueries.getTopic(req.params.id, (err, topic) => {
+
+      const authorizer = new Authorizer(req.user, topic);
+      const authorized = authorizer.update();
+
+      if(authorized) {
+
           topicQueries.updateTopic(req, req.body, (err, topic) => {
             if(err || topic == null){
               res.redirect(401, `/topics/${req.params.id}/edit`);
@@ -103,5 +126,13 @@ module.exports = {
               res.redirect(`/topics/${req.params.id}`);
             }
           });
+
+        } else {
+    
+          // #5
+                   req.flash("notice", "You are not authorized to do that.");
+                   res.redirect(401, `/topics/${req.params.id}/edit`);
+        }
+      });
     }
 }

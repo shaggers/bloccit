@@ -31,15 +31,21 @@ module.exports = {
         res.render("users/sign_in");
     },
     signIn(req, res, next){
-        passport.authenticate("local")(req, res, function () {
-          if(!req.user){
+        passport.authenticate('local', function(err, user, info) {
+          console.log(user);
+          if(err){
             req.flash("notice", "Sign in failed. Please try again.")
-            res.redirect("/users/sign_in");
-          } else {
-            req.flash("notice", "You've successfully signed in!");
-            res.redirect("/");
+            return next(err);
           }
-        })
+          if(!user){
+            return res.redirect('/users/sign_in')
+          } 
+          req.login(user, function(err) {
+            req.flash("notice", "You've successfully signed in!");
+            if(err){return next(err);}
+            return res.redirect("/")
+          })
+        })(req, res, next);
     },
     signOut(req, res, next){
         req.logout();

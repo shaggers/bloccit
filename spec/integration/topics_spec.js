@@ -33,13 +33,22 @@ describe("routes : topics", () => {
     describe("admin user performing CRUD actions for Topic", () => {
 
       beforeEach((done) => {  // before each suite in admin context
+        User.create({
+          email: "adminman@gmail.com",
+          password: "adminman",
+          role: "admin"     // mock authenticate as admin user
+        }).then((user) => {
+          this.user = user;
         request.get({         // mock authentication
           url: "http://localhost:3000/auth/fake",
           form: {
-            role: "admin"     // mock authenticate as admin user
-          }
+            role: user.role,
+            email: user.email,
+            userId: user.id
+          } 
         });
         done();
+       });
       });
   
       describe("GET /topics", () => {
@@ -79,6 +88,8 @@ describe("routes : topics", () => {
         it("should create a new topic and redirect", (done) => {
           request.post(options,
             (err, res, body) => {
+              console.log("Creating new topic *****");
+              console.log(err);
               Topic.findOne({where: {title: "blink-182 songs"}})
               .then((topic) => {
                 expect(topic.title).toBe("blink-182 songs");
@@ -117,7 +128,8 @@ describe("routes : topics", () => {
             expect(topicCountBeforeDelete).toBe(1);
   
             request.post(`${base}${this.topic.id}/destroy`, (err, res, body) => {
-              Topic.all()
+              console.log(body);
+              Topic.findAll()
               .then((topics) => {
                 expect(err).toBeNull();
                 expect(topics.length).toBe(topicCountBeforeDelete - 1);
@@ -152,6 +164,7 @@ describe("routes : topics", () => {
             form: {
               title: "JavaScript Frameworks",
               description: "There are a lot of them"
+              //user: this.user
             }
           }, (err, res, body) => {
             expect(err).toBeNull();

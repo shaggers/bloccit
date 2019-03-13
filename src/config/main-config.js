@@ -24,6 +24,9 @@ module.exports = {
         passportConfig.init(app);
         app.use((req,res,next) => {
             res.locals.currentUser = req.user;
+            if(res.locals.currentUser != undefined){
+                console.log(res.locals.currentUser.dataValues.role);
+            }
             next();
         })
     }

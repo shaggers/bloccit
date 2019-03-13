@@ -12,7 +12,10 @@ router.post("/topics/:topicId/posts/create",
     postController.create);
 router.get("/topics/:topicId/posts/:id", postController.show);
 router.get("/topics/:topicId/posts/:id/edit", postController.edit);
-router.post("/topics/:topicId/posts/:id/update", validation.validatePosts, postController.update);
+router.post("/topics/:topicId/posts/:id/update", 
+    helper.ensureAuthenticated,
+    validation.validatePosts, 
+    postController.update);
 
 
 module.exports = router;

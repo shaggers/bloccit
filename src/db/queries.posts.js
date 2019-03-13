@@ -20,16 +20,20 @@ module.exports = {
           callback(err);
         })
     },
-    deletePost(id, callback){
-        return Post.destroy({
-          where: { id }
-        })
-        .then((deletedRecordsCount) => {
-          callback(null, deletedRecordsCount);
-        })
-        .catch((err) => {
-          callback(err);
-        })
+    deletePost(req, callback){
+
+      return Post.findByPk(req.params.id)
+      .then((post) => {
+ 
+          post.destroy()
+          .then((res) => {
+            callback(null, post);
+          });
+      })
+      .catch((err) => {
+        callback(err);
+      });
+
     },
     updatePost(id, updatedPost, callback){
         return Post.findById(id)

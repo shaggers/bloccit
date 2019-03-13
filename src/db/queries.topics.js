@@ -43,25 +43,14 @@ module.exports = {
   },
   deleteTopic(req, callback){
 
-    // #1
         return Topic.findById(req.params.id)
         .then((topic) => {
    
-    // #2
-          
-   
-          
-    // #3
             topic.destroy()
             .then((res) => {
               callback(null, topic);
             });
-            
-           
-   
-    // #4
-  
-          
+
         })
         .catch((err) => {
           callback(err);
@@ -78,10 +67,6 @@ module.exports = {
              return callback("Topic not found");
            }
     
-    // #3
-           
-    
-    // #4
              topic.update(updatedTopic, {
                fields: Object.keys(updatedTopic)
              })

@@ -1,5 +1,7 @@
 const Post = require("./models").Posts;
 const Topic = require("./models").Topics;
+const Comment = require("./models").Comments;
+const User = require("./models").Users;
 
 module.exports = {
     addPost(newPost, callback){
@@ -12,7 +14,13 @@ module.exports = {
         })
     },
     getPost(id, callback){
-        return Post.findById(id)
+      return Post.findById(id, {
+        include: [
+          {model: Comment, as: "comments", include: [
+            {model: User }
+          ]}
+        ]
+      })
         .then((post) => {
           callback(null, post);
         })

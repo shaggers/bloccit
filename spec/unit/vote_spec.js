@@ -133,6 +133,46 @@ describe("Vote", () => {
  
           })
         });
+
+        it("should not create an upvote for anything that is greater then 1", (done) => {
+
+          Vote.create({
+            value: 2,
+            postId: this.post.id,
+            userId: this.user.id
+          })
+          .then((vote) => {
+ 
+            done();
+ 
+          })
+          .catch((err) => {
+           
+            expect(err.message).toContain("Validation isIn on value failed");
+            done();
+          });
+        });
+
+        it("should not create a downvote for anything that is less then 1.", (done) => {
+
+          Vote.create({
+            value: -2,
+            postId: this.post.id,
+            userId: this.user.id
+          })
+          .then((vote) => {
+ 
+            done();
+ 
+          })
+          .catch((err) => {
+            
+            expect(err.message).toContain("Validation isIn on value failed");
+            done();
+          });
+
+          done();
+        });
  
     });
 
@@ -258,5 +298,36 @@ describe("Vote", () => {
         });
    
     });
+
+    describe("#getPoints()", () => {
+
+      it("should return the amount of points a post has", (done) => {
+
+        console.log(this.vote.dataValues.value);
+
+        done();
+      })
+
+    })
+
+    describe("#hasUpvotedFor()", () => {
+
+      it("should return true if the user with the matching userId has upvoted on the post", (done) => {
+
+
+        done();
+      })
+
+    })
+
+    describe("#hasDownvotedFor()", () => {
+
+      it("should return true if the user with the matching userId has upvoted on the post", (done) => {
+        
+
+        done();
+      })
+
+    })
 
 });

@@ -10,10 +10,17 @@
 
         <% include ../static/partials/messages.ejs %>
 
-      <div>
-        <h1 style="display: inline;" ><%= post.title %></h1>
-        <% include ../static/partials/flairColorSelect.ejs %>
-      </div>
+        <div style="display: flex; align-items:center;">
+          <% if(currentUser) { %>
+            <% include ../votes/voting.ejs %>
+          <% } %>
+          
+          <div>
+            <h1 style="display: inline;" ><%= post.title %></h1>
+            <% include ../static/partials/flairColorSelect.ejs %>
+          </div>
+
+        </div>
 
       <% if(currentUser){ %>
         <% if(currentUser.isAdmin() || currentUser.dataValues.id === post.userId ) { %>

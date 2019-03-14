@@ -1,4 +1,3 @@
-// #1
 const request = require("request");
 const server = require("../../src/server");
 const base = "http://localhost:3000/topics/";
@@ -181,31 +180,121 @@ describe("routes : comments", () => {
    
         describe("POST /topics/:topicId/posts/:postId/comments/:id/destroy", () => {
    
-          it("should delete the comment with the associated ID", (done) => {
-            Comment.all()
-            .then((comments) => {
-              const commentCountBeforeDelete = comments.length;
-   
-              expect(commentCountBeforeDelete).toBe(1);
-   
-              request.post(
-               `${base}${this.topic.id}/posts/${this.post.id}/comments/${this.comment.id}/destroy`,
-                (err, res, body) => {
-                expect(res.statusCode).toBe(302);
+            it("should delete the comment with the associated ID", (done) => {
                 Comment.all()
                 .then((comments) => {
-                  expect(err).toBeNull();
-                  expect(comments.length).toBe(commentCountBeforeDelete - 1);
-                  done();
+                const commentCountBeforeDelete = comments.length;
+    
+                expect(commentCountBeforeDelete).toBe(1);
+    
+                request.post(
+                `${base}${this.topic.id}/posts/${this.post.id}/comments/${this.comment.id}/destroy`,
+                    (err, res, body) => {
+                    expect(res.statusCode).toBe(302);
+                    Comment.all()
+                    .then((comments) => {
+                    expect(err).toBeNull();
+                    expect(comments.length).toBe(commentCountBeforeDelete - 1);
+                    done();
+                    })
+    
+                });
                 })
    
-              });
+            });
+
+            it("should not delete a comment with the associated ID", (done) => {
+              console.log(this.user.id);
+              
+                User.create({
+                    email: "whoman@ford.com",
+                    password: "muscle4lyfe"
+                })
+                .then((user) => {
+                    this.user = user;
+
+                    request.get({          
+                        url: "http://localhost:3000/auth/fake",
+                        form: {
+                          role: "member",    
+                          userId: this.user.id
+                        }
+                    },
+                    (err, res, body) => {
+                        console.log(this.user.id);
+
+                        Comment.all()
+                        .then((comments) => {
+                        const commentCountBeforeDelete = comments.length;
+            
+                        expect(commentCountBeforeDelete).toBe(1);
+            
+                        request.post(
+                        `${base}${this.topic.id}/posts/${this.post.id}/comments/${this.comment.id}/destroy`,
+                            (err, res, body) => {
+                                expect(res.statusCode).toBe(401);
+                                Comment.all()
+                                .then((comments) => {
+                                    expect(err).toBeNull();
+                                    expect(comments.length).toBe(commentCountBeforeDelete);
+                                    done();
+                                })
+                            });
+                        })
+                    });
+                })
+
             })
-   
-          });
    
         });
    
     }); 
+
+    describe("admin performing CRUD actions on comment", () => {
+
+        it("should delete a comment with the associated id", (done) => {
+            console.log(this.user.id);
+            
+              User.create({
+                  email: "adminman@admin.com",
+                  password: "iamadmin"
+              })
+              .then((user) => {
+                  this.user = user;
+
+                  request.get({          
+                      url: "http://localhost:3000/auth/fake",
+                      form: {
+                        role: "admin",    
+                        userId: this.user.id
+                      }
+                  },
+                  (err, res, body) => {
+                      console.log(this.user.id);
+
+                      Comment.all()
+                      .then((comments) => {
+                      const commentCountBeforeDelete = comments.length;
+          
+                      expect(commentCountBeforeDelete).toBe(1);
+          
+                      request.post(
+                      `${base}${this.topic.id}/posts/${this.post.id}/comments/${this.comment.id}/destroy`,
+                          (err, res, body) => {
+                              expect(res.statusCode).toBe(302);
+                              Comment.all()
+                              .then((comments) => {
+                                  expect(err).toBeNull();
+                                  expect(comments.length).toBe(commentCountBeforeDelete - 1);
+                                  done();
+                              })
+                          });
+                      })
+                  });
+              })
+
+        })
+
+    })
 
 });

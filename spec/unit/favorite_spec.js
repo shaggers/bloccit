@@ -105,8 +105,8 @@ describe("Favorite", () => {
             })
             .catch((err) => {
     
-                expect(err.message).toContain("Favorite.userId cannot be null");
-                expect(err.message).toContain("Favorite.postId cannot be null");
+                expect(err.message).toContain("Favorites.userId cannot be null");
+                expect(err.message).toContain("Favorites.postId cannot be null");
                 done();
     
             })

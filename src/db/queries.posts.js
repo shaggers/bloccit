@@ -3,6 +3,7 @@ const Topic = require("./models").Topics;
 const Comment = require("./models").Comments;
 const User = require("./models").Users;
 const Vote = require("./models").Votes;
+const Favorite = require("./models").Favorites;
 
 module.exports = {
     addPost(newPost, callback){
@@ -19,7 +20,8 @@ module.exports = {
         include: [
           {model: Comment, as: "comments", include: [
             {model: User }
-          ]}, {model: Vote, as: "votes"}
+          ]}, {model: Vote, as: "votes"},
+              {model: Favorite, as: "favorites"}
         ]
       })
         .then((post) => {

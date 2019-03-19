@@ -176,32 +176,6 @@ describe("Vote", () => {
 
         it("should not create more then one vote per user for a given post", (done) => {
 
-          /*
-          let createVotes = new Promise(function() {
-            this.post.votes = [{
-              value: 1,
-              postId: this.post.id,
-              userId: this.user.id
-            },
-            {
-              value: 1,
-              postId: this.post.id,
-              userId: this.user.id
-            }
-            ], {
-              include: {
-                model: Vote,
-                as: "votes"
-              }
-          })
-
-          createVotes.catch((err) => {console.log(err)});
-          
-          done();
-          */
-
-          // NOT WORKING PROPERLY
-
             Vote.create({
               value: 1,
               postId: this.post.id,
@@ -209,7 +183,6 @@ describe("Vote", () => {
             })
             .then((vote) => {
               this.vote = vote
-              console.log(this.vote)
               
                 Vote.create({
                   value: 1,
@@ -218,20 +191,19 @@ describe("Vote", () => {
                 })
               .then((anotherVote) => {
 
-                  console.log("************************");
-                  console.log(anotherVote);
+                  // this block is skipped
 
                   done();
               })
               .catch((err) => {
-                console.log(err);
+                expect(err.message).toContain("Validation error");
                 done();
               });
             })
             .catch((err) => {
               console.log(err);
               done();  
-            })
+            })           
 
         });
         
@@ -379,7 +351,8 @@ describe("Vote", () => {
         
         this.vote = this.post.votes[0];
         const points = this.post.getPoints()
-        console.log(points);
+
+        expect(points).toBe(1);
         done();
 
       })
@@ -403,7 +376,8 @@ describe("Vote", () => {
       
         this.vote = this.post.votes[0];
         const result = this.post.hasUpvotedFor(this.user.id);
-        console.log(result);
+
+        expect(result).toBe(true);
         done();
       })
 
@@ -426,7 +400,8 @@ describe("Vote", () => {
     
         this.vote = this.post.votes[0];
         const result = this.post.hasDownvotedFor(this.user.id);
-        console.log(result);
+        
+        expect(result).toBe(true);
         done();
       })
 

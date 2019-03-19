@@ -1,16 +1,16 @@
 // #1
 const User = require("./models").Users;
+const Post = require("./models").Posts;
+const Comment = require("./models").Comments;
 const bcrypt = require("bcryptjs");
 
 module.exports = {
 // #2
   createUser(newUser, callback){
 
-// #3
     const salt = bcrypt.genSaltSync();
     const hashedPassword = bcrypt.hashSync(newUser.password, salt);
 
-// #4
     return User.create({
       email: newUser.email,
       password: hashedPassword
@@ -21,6 +21,30 @@ module.exports = {
     .catch((err) => {
       callback(err);
     })
-  }
+  },
+  getUser(id, callback){
+       let result = {};
+       User.findById(id)
+       .then((user) => {
+         if(!user) {
+           callback(404);
+         } else {
+           result["user"] = user;
+           Post.scope({method: ["lastFiveFor", id]}).all()
+           .then((posts) => {
+             result["posts"] = posts;
+             Comment.scope({method: ["lastFiveFor", id]}).all()
+             .then((comments) => {
+               result["comments"] = comments;
+               callback(null, result);
+             })
+             .catch((err) => {
+                console.log(err);
+                callback(err);
+             })
+           })
+         }
+       })
+     }
 
 }

@@ -17,12 +17,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, {
-    indexes: [
+    //We use this code to pass a unit test to make sure a user cant vote twice
+    /*indexes: [
         {
             unique: true,
             fields: ['postId', 'userId']
         }
-    ]
+    ]*/
   });
   Vote.associate = function(models) {
     // associations can be defined here

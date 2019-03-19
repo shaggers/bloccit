@@ -153,7 +153,7 @@ describe("Vote", () => {
           });
         });
 
-        it("should not create a downvote for anything that is less then 1.", (done) => {
+        it("should not create a downvote for anything that is less then -1.", (done) => {
 
           Vote.create({
             value: -2,
@@ -173,6 +173,69 @@ describe("Vote", () => {
 
           done();
         });
+
+        it("should not create more then one vote per user for a given post", (done) => {
+
+          /*
+          let createVotes = new Promise(function() {
+            this.post.votes = [{
+              value: 1,
+              postId: this.post.id,
+              userId: this.user.id
+            },
+            {
+              value: 1,
+              postId: this.post.id,
+              userId: this.user.id
+            }
+            ], {
+              include: {
+                model: Vote,
+                as: "votes"
+              }
+          })
+
+          createVotes.catch((err) => {console.log(err)});
+          
+          done();
+          */
+
+          // NOT WORKING PROPERLY
+
+            Vote.create({
+              value: 1,
+              postId: this.post.id,
+              userId: this.user.id
+            })
+            .then((vote) => {
+              this.vote = vote
+              console.log(this.vote)
+              
+                Vote.create({
+                  value: 1,
+                  postId: this.post.id,
+                  userId: this.user.id
+                })
+              .then((anotherVote) => {
+
+                  console.log("************************");
+                  console.log(anotherVote);
+
+                  done();
+              })
+              .catch((err) => {
+                console.log(err);
+                done();
+              });
+            })
+            .catch((err) => {
+              console.log(err);
+              done();  
+            })
+
+        });
+        
+          
  
     });
 
@@ -303,9 +366,22 @@ describe("Vote", () => {
 
       it("should return the amount of points a post has", (done) => {
 
-        console.log(this.vote.dataValues.value);
-
+        this.post.votes = [{
+            value: 1,
+            postId: this.post.id,
+            userId: this.user.id
+        }], {
+          include: {
+            model: Vote,
+            as: "votes"
+          }
+        }
+        
+        this.vote = this.post.votes[0];
+        const points = this.post.getPoints()
+        console.log(points);
         done();
+
       })
 
     })
@@ -314,7 +390,20 @@ describe("Vote", () => {
 
       it("should return true if the user with the matching userId has upvoted on the post", (done) => {
 
-
+        this.post.votes = [{
+            value: 1,
+            postId: this.post.id,
+            userId: this.user.id
+        }], {
+          include: {
+            model: Vote,
+            as: "votes"
+          }
+        }
+      
+        this.vote = this.post.votes[0];
+        const result = this.post.hasUpvotedFor(this.user.id);
+        console.log(result);
         done();
       })
 
@@ -324,7 +413,20 @@ describe("Vote", () => {
 
       it("should return true if the user with the matching userId has upvoted on the post", (done) => {
         
-
+        this.post.votes = [{
+          value: -1,
+          postId: this.post.id,
+          userId: this.user.id
+        }], {
+          include: {
+            model: Vote,
+            as: "votes"
+          }
+        }
+    
+        this.vote = this.post.votes[0];
+        const result = this.post.hasDownvotedFor(this.user.id);
+        console.log(result);
         done();
       })
 

@@ -6,6 +6,7 @@ const sequelize = require("../../src/db/models/index").sequelize;
 const Topic = require("../../src/db/models").Topics;
 const Post = require("../../src/db/models").Posts;
 const Comment = require("../../src/db/models").Comments;
+const Favorite = require("../../src/db/models").Favorites;
 
 describe("routes : users", () => {
 
@@ -152,7 +153,7 @@ describe("routes : users", () => {
       request.get(`${base}${this.user.id}`, (err, res, body) => {
 
         expect(body).toContain("Snowball Fighting");
-        expect(body).toContain("This comment is alright.")
+        expect(body).toContain("This comment is alright.");
         done();
       });
 

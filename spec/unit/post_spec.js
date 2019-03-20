@@ -25,7 +25,8 @@ describe("Post", () => {
           posts: [{
             title: "My first visit to Proxima Centauri b",
             body: "I saw some rocks.",
-            flair: "Answer",
+            flairName: "Answer",
+            flairColor: "Blue",
             userId: this.user.id
           }]
         }, {
@@ -50,7 +51,8 @@ describe("Post", () => {
       Post.create({
         title: "Pros of Cryosleep during the long journey",
         body: "1. Not having to answer the 'are we there yet?' question.",
-        flair: "Answer",
+        flairName: "Answer",
+        flairColor: "Purple",
         topicId: this.topic.id,
         userId: this.user.id
       })
@@ -59,7 +61,8 @@ describe("Post", () => {
 //#2
         expect(post.title).toBe("Pros of Cryosleep during the long journey");
         expect(post.body).toBe("1. Not having to answer the 'are we there yet?' question.");
-        expect(post.flair).toBe("Answer");
+        expect(post.flairName).toBe("Answer");
+        expect(post.flairColor).toBe("Purple");
         expect(post.topicId).toBe(this.topic.id);
         expect(post.userId).toBe(this.user.id);
         done();

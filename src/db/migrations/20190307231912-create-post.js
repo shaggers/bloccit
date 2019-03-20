@@ -16,8 +16,12 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      flair: {
-        allowNull: true,
+      flairName: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      flairColor: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       createdAt: {

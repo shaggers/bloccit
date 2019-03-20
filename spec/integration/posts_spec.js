@@ -28,7 +28,8 @@ describe("routes : posts", () => {
           posts: [{
             title: "Snowball Fighting",
             body: "So much snow!",
-            flair: "Answer",
+            flairName: "Answer",
+            flairColor: "Blue",
             userId: this.user.id
           }]
         }, {
@@ -92,7 +93,8 @@ describe("routes : posts", () => {
             form: {
               title: "Watching snow melt",
               body: "Without a doubt my favoriting things to do besides watching paint dry!",
-              flair: "Theory"
+              flair: "Theory",
+              Color: "Purple"
               //userId: this.user.id
             }
           };
@@ -169,7 +171,8 @@ describe("routes : posts", () => {
             form: {
               title: "Snowman Building Competition",
               body: "I love watching them melt slowly.",
-              flair: "None"
+              flairName: "None",
+              flairColor: "Green",
               //userId: this.user.id
             }
           }, (err, res, body) => {
@@ -184,7 +187,8 @@ describe("routes : posts", () => {
               form: {
                 title: "Snowman Building Competition",
                 body: "I love watching them melt slowly",
-                flair: "None"
+                flairName: "None",
+                flairColor: "Green"
                 //userId: this.user.id
               }
             };
@@ -199,7 +203,8 @@ describe("routes : posts", () => {
               .then((post) => {
                 expect(post.title).toBe("Snowball Fighting");
                 expect(post.body).toBe("So much snow!");
-                expect(post.flair).toBe("Answer");
+                expect(post.flairName).toBe("Answer");
+                expect(post.flairColor).toBe("Blue");
                 done();
               });
             });
@@ -249,7 +254,8 @@ describe("routes : posts", () => {
             form: {
               title: "Watching snow melt",
               body: "Without a doubt my favoriting things to do besides watching paint dry!",
-              flair: "Theory",
+              flairName: "Theory",
+              flairColor: "Purple",
               userId: this.user.id
             }
           };
@@ -261,7 +267,8 @@ describe("routes : posts", () => {
                 expect(post).not.toBeNull();
                 expect(post.title).toBe("Watching snow melt");
                 expect(post.body).toBe("Without a doubt my favoriting things to do besides watching paint dry!");
-                expect(post.flair).toBe("Theory")
+                expect(post.flairName).toBe("Theory")
+                expect(post.flairColor).toBe("Purple");
                 expect(post.topicId).not.toBeNull();
                 done();
               })
@@ -354,7 +361,8 @@ describe("routes : posts", () => {
             form: {
               title: "Snowman Building Competition",
               body: "I love watching them melt slowly.",
-              flair: "None",
+              flairName: "None",
+              flairColor: "Purple",
               userId: this.user.id
             }
           }, (err, res, body) => {
@@ -369,7 +377,8 @@ describe("routes : posts", () => {
               form: {
                 title: "Snowman Building Competition",
                 body: "I love watching them melt slowly",
-                flair: "None",
+                flairName: "None",
+                flairColor: "Purple",
                 userId: this.user.id
               }
             };
@@ -384,7 +393,8 @@ describe("routes : posts", () => {
               .then((post) => {
                 expect(post.title).toBe("Snowman Building Competition");
                 expect(post.body).toBe("I love watching them melt slowly");
-                expect(post.flair).toBe("None");
+                expect(post.flairName).toBe("None");
+                expect(post.flairColor).toBe("Purple");
                 done();
               });
             });

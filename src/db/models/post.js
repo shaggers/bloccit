@@ -9,9 +9,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    flair: {
+    flairName: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false
+    },
+    flairColor: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
     topicId: {
       type: DataTypes.INTEGER,

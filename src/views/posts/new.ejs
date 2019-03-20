@@ -24,14 +24,23 @@
           <small class="text-muted" id="bodyHelp">body must be 10 or more characters in length.</small>
         </div>
         <div>
-          <label for="flair">Flair</label>
-          <select class="custom-select" name="flair" id="flair">
-              <option selected>Optional</option>
-              <option value="Answer">Answer</option>
+          <label for="flairName">Flair Name</label>
+          <select class="custom-select" name="flairName" id="flairName">
+              <option value="Answer" selected>Answer</option>
               <option value="Question">Question</option>
               <option value="Debate">Debate</option>
               <option value="Theory">Theory</option>
               <option value="News">News</option>
+            </select>
+        </div>
+        <div>
+          <label for="flairColor">Flair Color</label>
+          <select class="custom-select" name="flairColor" id="flairColor">
+              <option value="blue" selected>Blue</option>
+              <option value="purple">Purple</option>
+              <option value="green">Green</option>
+              <option value="yellow">Yellow</option>
+              <option value="red">Red</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary" style="margin-top: 25px;">Submit</button>

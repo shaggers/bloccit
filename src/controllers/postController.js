@@ -22,7 +22,8 @@ module.exports = {
         let newPost= {
           title: req.body.title,
           body: req.body.body,
-          flair: req.body.flair,
+          flairName: req.body.flairName,
+          flairColor: req.body.flairColor,
           topicId: req.params.topicId,
           userId: req.user.id
         };

@@ -17,7 +17,7 @@
           
           <div>
             <h1 style="display: inline;" ><%= post.title %></h1>
-            <% include ../static/partials/flairColorSelect.ejs %>
+            <p style="background-color: <%= post.flairColor %>;"><%= post.flairName %></p>
           </div>
 
         </div>

@@ -15,7 +15,7 @@ module.exports = {
     })
   },
   getTopic(id, callback){
-    return Topic.findById(id, {
+    return Topic.findByPk(id, {
         include: [{
           model: Post,
           as: "posts"
@@ -43,7 +43,7 @@ module.exports = {
   },
   deleteTopic(req, callback){
 
-        return Topic.findById(req.params.id)
+        return Topic.findByPk(req.params.id)
         .then((topic) => {
    
             topic.destroy()
@@ -59,7 +59,7 @@ module.exports = {
   updateTopic(req, updatedTopic, callback){
 
     // #1
-         return Topic.findById(req.params.id)
+         return Topic.findByPk(req.params.id)
          .then((topic) => {
     
     // #2

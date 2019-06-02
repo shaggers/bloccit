@@ -25,7 +25,7 @@ module.exports = {
     })
   },
   getAdvertisement(id, callback){
-    return Advertisement.findById(id)
+    return Advertisement.findByPk(id)
     .then((advertisement) => {
       callback(null, advertisement);
     })
@@ -45,7 +45,7 @@ module.exports = {
     })
   },
   updateAdvertisement(id, updatedAdvertisement, callback){
-    return Advertisement.findById(id)
+    return Advertisement.findByPk(id)
     .then((advertisement) => {
       if(!advertisement){
         return callback("Advertisement not found");

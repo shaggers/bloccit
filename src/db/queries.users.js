@@ -31,13 +31,13 @@ module.exports = {
            callback(404);
          } else {
            result["user"] = user;
-           Post.scope({method: ["lastFiveFor", id]}).all()
+           Post.scope({method: ["lastFiveFor", id]}).findAll()
            .then((posts) => {
              result["posts"] = posts;
-             Comment.scope({method: ["lastFiveFor", id]}).all()
+             Comment.scope({method: ["lastFiveFor", id]}).findAll()
              .then((comments) => {
                result["comments"] = comments;
-               Favorite.scope({method: ["allFor", id]}).all()
+               Favorite.scope({method: ["allFor", id]}).findAll()
                .then((favorites) => {
                  result["favorites"] = favorites;
                  callback(null, result);

@@ -32,7 +32,7 @@ module.exports = {
     },
     signIn(req, res, next){
         passport.authenticate('local', function(err, user, info) {
-          console.log(user);
+          
           if(err){
             req.flash("notice", "Sign in failed. Please try again.")
             return next(err);
